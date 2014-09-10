@@ -9,16 +9,17 @@ mediatomb:
 	curl https://gist.githubusercontent.com/sbma44/51e2a7ade75dfa15b3fa/raw/5b0f549da4858d8a19769cba4fd0e5ea8c101d8c/gistfile1.txt -o /etc/mediatomb/config.xml
 
 deluge:
-	apt-get install deluge deluge-daemon deluge-web deluge-console -y
-	adduser deluge deluge
-	curl https://gist.githubusercontent.com/sbma44/f9cebc9f1dd17536b331/raw/5d68931ad494962cc4ee0a67f6699427450c5c3f/gistfile1.txt -o /etc/init.d/deluge-daemon
+	apt-get install deluge deluged deluge-web deluge-console -y
+	adduser --system deluge
+	mkdir -p /home/deluge/.config/deluge/
+	curl https://gist.githubusercontent.com/sbma44/f9cebc9f1dd17536b331/raw/ef4913bcfeaf33a1a8dde5efe67b6e387d9d65b0/gistfile1.txt -o /etc/default/deluge-daemon
+	chmod +x /etc/init.d/deluge-daemon
 	curl https://gist.githubusercontent.com/sbma44/1937d1ac6cf6ff912afb/raw/e6e05ab4aedfeee6b9c4317075020e4174e6e6ee/gistfile1.txt -o /home/deluge/.config/deluge/core.conf
 	curl https://gist.githubusercontent.com/sbma44/3eaf26a2f2be30ab20af/raw/568254b83ad7ab16823f324a69f1613fff698b3a/gistfile1.txt -o /home/deluge/.config/deluge/execute.conf
 	curl https://gist.githubusercontent.com/sbma44/7c29f9e751f804d4f155/raw/3946deed79b5f38bd6060346295785ec989657c4/gistfile1.txt -o /usr/bin/deluge-push-notification
-	update-rc.d deluge-daemon defaults
 
 usb:
-	#echo "" | tee -a /etc/fstab
+	echo "UUID=24B6-1A04 /mnt/usb vfat auto,rw,user,exec,umask=000 0 0" | tee -a /etc/fstab
 	mount -a
 	mkdir -p /mnt/usb/torrents/complete /mnt/usb/torrents/down /mnt/usb/torrents/watch
 	
